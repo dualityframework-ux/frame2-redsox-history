@@ -59,8 +59,18 @@ edited_insight = {
     "tag": tag,
 }
 
-post_text = build_post_variants(edited_insight, tone)
+import streamlit as st
+from content_engine.post_generator import build_post_variants
 
-st.markdown('<div class="section-label">post</div>', unsafe_allow_html=True)
-st.markdown(f'<div class="post-box">{post_text}</div>', unsafe_allow_html=True)
-st.code(post_text, language=None)
+# example: pick one insight dict only
+selected_insight = {
+    "observation": observation,
+    "mechanism": mechanism,
+    "implication": implication,
+    "tag": "balanced",
+}
+
+post_text = build_post_variants(selected_insight, tone)
+
+st.subheader("post")
+st.text_area("post", value=post_text, height=220)

@@ -1,55 +1,52 @@
+from __future__ import annotations
+
 from typing import Literal
-from config.settings import SETTINGS
 
-Tone = Literal["neutral", "viral", "analysis"]
-
-def to_lower(text: str) -> str:
-    if getattr(SETTINGS, "lowercase_posts", False):
-        return text.lower()
-    return text
+Tone = Literal["simple", "analytical", "one-liner"]
 
 
-def build_post_variants(insight: str, tone: Tone = "neutral") -> dict:
+def _clean(value: str) -> str:
+    return " ".join(str(value).strip().split())
+
+
+def build_post_variants(insight: dict, tone: Tone = "simple") -> str:
     """
-    Generates X / social media post variants from a sports insight.
-    """
+    Convert an insight dict into one clean post string.
 
-    neutral = f"""
-observation
-{insight}
-
-mechanism
-games shift when one hidden edge tilts the environment.
-
-implication
-if the edge holds, the scoreboard usually follows.
-"""
-
-    viral = f"""
-fans see the scoreboard
-
-frame² sees the edge
-
-{insight}
-"""
-
-    analysis = f"""
-observation
-{insight}
-
-mechanism
-contact quality
-plate discipline
-run expectancy swings
-
-implication
-process eventually beats variance.
-"""
-
-    posts = {
-        "neutral": to_lower(neutral.strip()),
-        "viral": to_lower(viral.strip()),
-        "analysis": to_lower(analysis.strip()),
+    Expected insight shape:
+    {
+        "observation": "...",
+        "mechanism": "...",
+        "implication": "...",
+        "tag": "..."
     }
+    """
 
-    return posts
+    observation = _clean(insight.get("observation", "the game shifted."))
+    mechanism = _clean(insight.get("mechanism", "one hidden edge started winning repeatedly."))
+    implication = _clean(insight.get("implication", "the scoreboard usually follows the process."))
+    tag = _clean(insight.get("tag", "signal"))
+
+    if tone == "simple":
+        return (
+            f"fans see: {observation}\n\n"
+            f"frame² sees: {mechanism}\n\n"
+            f"implication: {implication}"
+        )
+
+    if tone == "analytical":
+        return (
+            f"observation: {observation}\n"
+            f"mechanism: {mechanism}\n"
+            f"implication: {implication}\n"
+            f"tag: {tag}"
+        )
+
+    if tone == "one-liner":
+        return f"fans see: {observation} frame² sees: {mechanism} implication: {implication}"
+
+    return (
+        f"fans see: {observation}\n\n"
+        f"frame² sees: {mechanism}\n\n"
+        f"implication: {implication}"
+    )

@@ -1,4 +1,36 @@
-# frame² — Red Sox Franchise History  ⚾  v10
+# frame²
+
+frame² is a sports intelligence engine designed to explain the mechanism 
+behind sports outcomes.
+
+most platforms show statistics.
+
+frame² explains why the game changed.
+
+## philosophy
+
+result = process + variance
+
+observation → mechanism → implication
+
+## mvp v1 features
+
+- red sox season explorer
+- process vs result analysis
+- franchise timeline
+- core + pipeline explorer
+- live game module
+- creator post generator
+
+## run locally
+
+cd ~/Downloads/frame2-redsox-history-v1
+source venv/bin/activate
+export PYTHONPATH=.
+streamlit run app/app.py# frame² — Red Sox Franchise 
+History  
+⚾  
+v10
 [![CI](https://github.com/YOUR-USERNAME/frame2-redsox-history/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/frame2-redsox-history/actions/workflows/ci.yml)
 [![Nightly Audit](https://github.com/YOUR-USERNAME/frame2-redsox-history/actions/workflows/nightly.yml/badge.svg)](https://github.com/YOUR-USERNAME/frame2-redsox-history/actions/workflows/nightly.yml)
 [![Python 3.10 | 3.11 | 3.12](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12-blue.svg)](https://www.python.org)
