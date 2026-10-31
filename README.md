@@ -1,43 +1,10 @@
-# frame²
+# frame² — Red Sox Franchise History
 
-frame² is a sports intelligence engine designed to explain the mechanism 
-behind sports outcomes.
+[![CI](https://github.com/dualityframework-ux/frame2-redsox-history/actions/workflows/ci.yml/badge.svg)](https://github.com/dualityframework-ux/frame2-redsox-history/actions/workflows/ci.yml)
+![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)
+[![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
 
-most platforms show statistics.
-
-frame² explains why the game changed.
-
-## philosophy
-
-result = process + variance
-
-observation → mechanism → implication
-
-## mvp v1 features
-
-- red sox season explorer
-- process vs result analysis
-- franchise timeline
-- core + pipeline explorer
-- live game module
-- creator post generator
-
-## run locally
-
-cd ~/Downloads/frame2-redsox-history-v1
-source venv/bin/activate
-export PYTHONPATH=.
-streamlit run app/app.py# frame² — Red Sox Franchise 
-History  
-⚾  
-v10
-[![CI](https://github.com/YOUR-USERNAME/frame2-redsox-history/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR-USERNAME/frame2-redsox-history/actions/workflows/ci.yml)
-[![Nightly Audit](https://github.com/YOUR-USERNAME/frame2-redsox-history/actions/workflows/nightly.yml/badge.svg)](https://github.com/YOUR-USERNAME/frame2-redsox-history/actions/workflows/nightly.yml)
-[![Python 3.10 | 3.11 | 3.12](https://img.shields.io/badge/python-3.10%20|%203.11%20|%203.12-blue.svg)](https://www.python.org)
-[![Coverage ≥70%](https://img.shields.io/badge/coverage-%E2%89%A570%25-brightgreen.svg)](https://codecov.io)
-[![Tests 214 passed](https://img.shields.io/badge/tests-168%20passed-brightgreen.svg)](#)
-
-
+frame² explains the mechanism behind sports outcomes. Most platforms show statistics; frame² explains why the season went the way it did, using one idea: **result = process + variance**.
 
 > A self-contained analytics platform covering 58 seasons of Boston Red Sox history (1967–2024).  
 > 7 macro-eras · 7 World Series appearances (4 wins) · wins, run-differential, OPS, ERA, and process tags for every season.
@@ -46,13 +13,13 @@ v10
 
 ## Deploy in 2 minutes — Streamlit Community Cloud (free)
 
-1. **Fork or push this repo to GitHub** (public or private)
+1. **Fork this repo** on GitHub
 2. Go to **[share.streamlit.io](https://share.streamlit.io)** → "New app"
 3. Set the fields:
 
    | Field | Value |
    |---|---|
-   | Repository | `your-github-username/frame2-redsox-history` |
+   | Repository | `<your-username>/frame2-redsox-history` |
    | Branch | `main` |
    | Main file path | `app/app.py` |
 
@@ -93,7 +60,7 @@ web: streamlit run app/app.py --server.port=$PORT --server.address=0.0.0.0
 ## Run Locally
 
 ```bash
-git clone https://github.com/your-username/frame2-redsox-history.git
+git clone https://github.com/dualityframework-ux/frame2-redsox-history.git
 cd frame2-redsox-history
 
 python3 -m venv .venv
@@ -114,14 +81,17 @@ frame2-redsox-history/
 ├── app/
 │   ├── app.py                              # Streamlit entry point
 │   └── pages/
-│       ├── 04_redsox_history_home.py       # Landing dashboard
+│       ├── 01_home.py                      # Home
+│       ├── 02_era_comparison.py            # Era comparison dashboard
+│       ├── 03_redsox_tilt_intelligence.py  # Tilt (process vs result) signals
+│       ├── 04_redsox_history_home.py       # History landing dashboard
 │       ├── 05_redsox_season_explorer.py    # Season-by-season explorer
 │       ├── 06_redsox_process_vs_result.py  # Process vs result analysis
 │       ├── 07_redsox_era_board.py          # Era leaderboard
 │       ├── 08_redsox_history_post_generator.py  # Social post generator
-│       ├── 09_redsox_franchise_timeline.py # ★ Main timeline + all exports
-│       ├── 10_redsox_core_pipeline_explorer.py  # Pipeline explorer
-│       └── 11_redsox_era_comparison.py     # ★ Era comparison dashboard
+│       ├── 09_redsox_franchise_timeline.py # Main timeline + exports
+│       ├── 10_redsox_core_pipeline_explorer.py  # Core + pipeline explorer
+│       └── 12_redsox_live_game.py          # Live game module (MLB Stats API)
 │
 ├── storage/parquet/
 │   ├── redsox_history.csv                  # 58 rows, 14 columns incl. key_players
@@ -131,8 +101,7 @@ frame2-redsox-history/
 ├── intelligence/                           # Signal/noise engine
 ├── content_engine/                         # Post generator
 ├── config/                                 # Settings, styles, utils
-├── tests/
-│   └── test_signal_noise.py
+├── tests/                                  # pytest suite (214 tests)
 │
 ├── export_era_comparison_pdf.py            # Era comparison PDF (10 pages)
 ├── build_timeline_slideshow.py             # 17-slide PPTX
@@ -197,7 +166,7 @@ python generate_web_timeline.py [output.html]
 python generate_mobile_timeline.py [output.html]
 ```
 
-All four are also accessible as **in-app download buttons** on pages 09 and 11 — no CLI needed.
+All four are also available as **in-app download buttons** on the timeline and era comparison pages.
 
 ---
 
@@ -214,75 +183,18 @@ All four are also accessible as **in-app download buttons** on pages 09 and 11 �
 
 ## Requirements
 
-```
-streamlit>=1.32.0
-pandas>=2.0.0
-plotly>=5.18.0
-matplotlib>=3.8.0
-reportlab>=4.1.0
-python-pptx>=0.6.23
-numpy>=1.26.0
-```
-
-System packages (auto-installed by Streamlit Cloud via `packages.txt`):
-```
-fonts-liberation
-fontconfig
-```
-
+Python 3.10+. Dependencies are listed in [`requirements.txt`](requirements.txt). Streamlit Community Cloud installs the system fonts in `packages.txt` automatically.
 
 ---
 
-## CI/CD Pipeline
+## Tests
 
-The project ships with **two GitHub Actions workflows** in `.github/workflows/`.
-
-### `ci.yml` — Push & PR Pipeline
-
-Triggered on every push or pull request to `main` (also `develop`), plus manual **workflow_dispatch**.
-
-| Job | Python | What it does |
-|---|---|---|
-| **Tests (3×)** | 3.10 · 3.11 · 3.12 | 214 pytest tests in parallel; coverage XML; uploads to Codecov on 3.11 |
-| **Lint** | 3.11 | flake8 + bugbear, max-line 110, excludes `app/pages` |
-| **Syntax** | 3.11 | `py_compile` on every `.py` file in the repo |
-| **Data Integrity** | 3.11 | Schema, 58-row count, season range 1967–2024, 7 WS appearances, no-null check |
-| **HTML Smoke** | 3.11 | Generates both timeline HTMLs and validates 10 structural tokens each |
-| **Deploy Notify** | — | Confirms Streamlit Cloud auto-deploy on green `main` push |
-
-**Coverage gate:** ≥ 65% (currently **99.65%**).
-All 5 jobs must be green before `deploy-notify` fires.
-
-### `nightly.yml` — Daily Audit
-
-Scheduled at **06:00 UTC** every day; also manually triggerable via `workflow_dispatch`.
-
-- Full test suite at **≥ 70%** coverage  
-- Data completeness audit: 58 rows, 7 WS appearances, no nulls in core stat columns  
-- HTML size regression: both mobile + web timelines must be **> 50 KB**
-
-### Activating on GitHub
-
-After your first `git push`, go to your repo → **Actions** tab.
-Both workflows appear and run automatically — no extra configuration needed.
-
-**Optional secrets** (Settings → Secrets and variables → Actions → New repository secret):
-
-| Secret name | Purpose |
-|---|---|
-| `CODECOV_TOKEN` | Upload coverage to [codecov.io](https://codecov.io) (free for public repos) |
-
-### Update Badge URLs
-
-Replace `YOUR-USERNAME` in the five badge lines at the top of this README:
-
-```
-[![CI](https://github.com/YOUR-USERNAME/frame2-redsox-history/...
-                ^^^^^^^^^^^^^ ← your GitHub username
+```bash
+pip install -r requirements.txt pytest
+PYTHONPATH=. pytest -q
 ```
 
-Badges will then show live ✅ / ❌ status on every commit.
-
+The suite covers the data adapters, settings, data integrity (58 seasons, 1967–2024, 7 World Series appearances), the history and signal/noise engines, the orchestrator and the post generator. GitHub Actions runs it on every push to `main`.
 
 ---
 
@@ -296,8 +208,12 @@ Badges will then show live ✅ / ❌ status on every commit.
 | v7 | PDF export (`export_era_comparison_pdf.py`) |
 | v8 | PPTX slideshow (`build_timeline_slideshow.py`, 17 slides) |
 | v9 | Desktop interactive HTML (`generate_web_timeline.py`) |
-| v10 | Mobile-responsive HTML · `.streamlit/config.toml` · `packages.txt` · `Procfile` · `.gitignore` · Production-ready |
+| v10 | Mobile-responsive HTML · `.streamlit/config.toml` · `packages.txt` · `Procfile` |
 
 ---
 
 *frame² analytics · Red Sox Franchise History · 1967–2024*
+
+## License
+
+MIT — see [LICENSE](LICENSE).
