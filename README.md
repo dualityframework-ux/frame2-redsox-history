@@ -172,8 +172,18 @@ All four are also available as **in-app download buttons** on the timeline and e
 
 ## Process Tags
 
-| Tag | Definition |
+Each season's record is compared with the wins its run differential was worth (81 + run diff ÷ 10), both scaled to 162 games so shortened seasons compare fairly. Luck is the gap.
+
+| Tag | Rule |
 |---|---|
+| **Overperformed** | Win pace at least 4 wins above expected |
+| **Underperformed** | Win pace at least 4 wins below expected |
+| **Signal** | 95+ win pace within 4 wins of expected: elite process matched an elite record |
+| **Balanced** | Everything else |
+
+The band is `LUCK_BAND` in `config/settings.py`. The app, the timelines and the exports all use this one rule.
+
+---|---|
 | **Signal** | ≥95 W + ≥80 RD — elite process matched elite result |
 | **Balanced** | Wins and run-differential roughly aligned |
 | **Overperformed** | Wins outran the run-differential expectation |
