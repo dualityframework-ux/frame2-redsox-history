@@ -2,7 +2,7 @@
 > Dataset, methodology and deployment documentation now lives in the
 > [history guide](https://github.com/dualityframework-ux/frame2_mvp/blob/main/docs/HISTORY_GUIDE.md).
 > The original documentation below is retained for reference and may describe
-> unimplemented features or outdated rules. Publish the canonical fixes first.
+> unimplemented features or outdated rules.
 
 # frame² — Red Sox Franchise History
 
